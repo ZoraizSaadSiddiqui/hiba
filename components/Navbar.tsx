@@ -12,10 +12,11 @@ export default function Navbar() {
           justify-between
           rounded-[22369600px]
           border-[0.5px]
-          border-[#FCEFDD]
-          bg-[linear-gradient(90deg,#FCEFDD_0%,rgba(252,239,221,0.8)_50%,rgba(245,226,203,0.5)_100%)]
-          px-[24px]
-          py-[12px]
+          border-[rgba(255,255,255,0.5)]
+          bg-[linear-gradient(90deg,rgba(252,239,221,1),rgba(252,239,221,0.8))]
+          px-[24.5px]
+          py-[12.5px]
+          shadow-[0_36px_72px_-30px_rgba(90,41,50,0.3),0_12px_28px_-14px_rgba(90,41,50,0.2)]
         "
       >
         {/* Logo */}

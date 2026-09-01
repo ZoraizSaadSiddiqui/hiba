@@ -1,21 +1,30 @@
-import Image from "next/image";
-import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 
 export default function Home() {
   return (
-    <main className="relative mx-auto flex w-[1440px] h-[796px] flex-col overflow-hidden bg-[#C1652F]">
-      {/* Background images */}
-      <img src="/upper%20hero.png" alt="" className="absolute left-0 top-0 w-full h-auto object-cover pointer-events-none" />
-      <img src="/lower%20hero.png" alt="" className="absolute left-0 bottom-0 w-full h-auto object-cover pointer-events-none" />
+    <main className="relative w-full">
+      {/* Sab stack — ek dusray ke upar */}
+      <div className="relative w-full min-h-[796px]">
 
-      {/* Content wrapper */}
-      <div className="relative z-10 flex flex-col h-full w-full">
-        <Navbar />
-        
-        <div className="flex-1 flex items-center justify-center px-[64px]">
+        {/* 1) Sabse neeche — lowerhero */}
+        <img
+          src="/lowerhero.png"
+          alt=""
+          className="absolute inset-0 z-0 w-full h-[796px] object-cover"
+        />
+
+        {/* 2) Uske upar — herobg */}
+        <img
+          src="/herobg.png"
+          alt=""
+          className="absolute inset-0 z-[1] w-full h-[796px] object-cover"
+        />
+
+        {/* 3) Sabse upar — Hero */}
+        <div className="relative z-[2] flex flex-col">
           <Hero />
         </div>
+
       </div>
     </main>
   );
