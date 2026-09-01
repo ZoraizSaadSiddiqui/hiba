@@ -3,7 +3,7 @@ import Navbar from "@/components/Navbar";
 export default function Hero() {
   return (
     <>
-      <section className="relative w-[1440px] overflow-hidden">
+      <section className="relative w-[1440px] h-[796px] overflow-hidden">
         <div
           className="absolute left-[100px] w-[1240px] h-[658.32556px] opacity-100 flex flex-col gap-[120px]"
           style={{
@@ -20,7 +20,7 @@ export default function Hero() {
           >
             {/* Content row: left text + right form card, centered vertically */}
             <div className="relative z-10 flex h-full w-full items-center justify-between px-[96px]">
-              
+
               {/* Left side text container */}
               <div className="flex w-[668px] flex-col justify-center">
                 <h3 className="font-['Sofia_Pro'] font-normal text-[12px] leading-[16px] tracking-[3.5px] text-[#FCEFDD] uppercase">
@@ -56,15 +56,11 @@ export default function Hero() {
                 </div>
 
                 <div className="flex w-[195px] flex-col pt-[40px]">
-                  <button
-                    type="button"
-                    className="flex h-[52px] w-[195px] shrink-0 items-center gap-[10px] rounded-full bg-[#FCEFDD] px-[28px] transition-transform hover:scale-105"
-                  >
+                  <button type="button" className="flex h-[52px] w-[195px] shrink-0 items-center justify-center gap-[10px] rounded-full bg-[#FCEFDD] px-[28px] transition-transform hover:scale-105" >
                     <span className="font-['Sofia_Pro'] font-medium text-[16px] leading-[24px] text-[#B85428]">
                       Book Workshop
                     </span>
-
-                    <span className="flex h-[16px] w-[16px] shrink-0 items-center justify-center">
+                    <span className="flex  shrink-0 translate-y-[1px] items-center justify-center">
                       <svg
                         width="16"
                         height="16"
@@ -121,15 +117,13 @@ export default function Hero() {
 
                   <div className="flex flex-col gap-1">
                     <h3
-                      className="h-[28px] w-[297px] text-[20px] font-normal leading-[28px] tracking-[-0.5px] text-[#613339]"
-                      style={{ fontFamily: "MonarchaW01-Regular, serif" }}
+                      className="font-['MonarchaW01-Regular'] h-[28px] w-[297px] text-[20px] font-normal leading-[28px] tracking-[-0.5px] text-[#613339]"
                     >
                       Book & Pay for a Group Workshop
                     </h3>
 
                     <p
-                      className="h-[18px] w-[232px] whitespace-nowrap text-[12px] font-normal leading-[18px] tracking-[2px] text-[#613339] opacity-60"
-                      style={{ fontFamily: "Sofia Pro, sans-serif" }}
+                      className="font-['Sofia_Pro'] h-[18px] w-[232px] whitespace-nowrap text-[12px] font-normal leading-[18px] tracking-[2px] text-[#613339] opacity-60"
                     >
                       Weekend workshops &middot; Ages 6-18
                     </p>
@@ -142,32 +136,28 @@ export default function Hero() {
                   <div className="flex gap-[10px]">
                     <div className="flex h-[82px] w-[207px] flex-col gap-[8px] pt-[24px]">
                       <label
-                        className="h-[14px] w-[108px] text-[14px] font-normal leading-[14px] tracking-[-0.5px] text-[#613339]"
-                        style={{ fontFamily: "MonarchaW01-Regular, serif" }}
+                        className="font-['MonarchaW01-Regular'] h-[14px] w-[108px] text-[14px] font-normal leading-[14px] tracking-[-0.5px] text-[#613339]"
                       >
                         Participant name
                       </label>
 
                       <input
                         type="text"
-                        className="box-border h-[36px] w-[207px] rounded-[32px] border-[0.5px] border-[#B85428] bg-white p-[12px] text-[12px] font-light leading-[16px] tracking-[0px] text-[#8A5C62] outline-none placeholder:text-[#8A5C62]/40"
-                        style={{ fontFamily: "Sofia Pro, sans-serif" }}
+                        className="font-['Sofia_Pro'] box-border h-[36px] w-[207px] rounded-[32px] border-[0.5px] border-[#B85428] bg-white p-[12px] text-[12px] font-light leading-[16px] tracking-[0px] text-[#8A5C62] outline-none placeholder:text-[#8A5C62]/40"
                         placeholder="Child's name"
                       />
                     </div>
 
                     <div className="flex h-[82px] w-[207px] flex-col gap-[8px] pt-[24px]">
                       <label
-                        className="h-[14px] w-[108px] text-[14px] font-normal leading-[14px] tracking-[-0.5px] text-[#613339]"
-                        style={{ fontFamily: "MonarchaW01-Regular, serif" }}
+                        className="font-['MonarchaW01-Regular'] h-[14px] w-[108px] text-[14px] font-normal leading-[14px] tracking-[-0.5px] text-[#613339]"
                       >
                         Parent email
                       </label>
 
                       <input
                         type="email"
-                        className="box-border h-[36px] w-[207px] rounded-[32px] border-[0.5px] border-[#B85428] bg-white p-[12px] text-[12px] font-light leading-[16px] tracking-[0px] text-[#8A5C62] outline-none placeholder:text-[#8A5C62]/40"
-                        style={{ fontFamily: "Sofia Pro, sans-serif" }}
+                        className="font-['Sofia_Pro'] box-border h-[36px] w-[207px] rounded-[32px] border-[0.5px] border-[#B85428] bg-white p-[12px] text-[12px] font-light leading-[16px] tracking-[0px] text-[#8A5C62] outline-none placeholder:text-[#8A5C62]/40"
                         placeholder="you@email.com"
                       />
                     </div>
@@ -176,20 +166,15 @@ export default function Hero() {
                   {/* Workshop Category */}
                   <div className="flex h-[70.59px] w-[424px] flex-col gap-[8px] pt-[12px]">
                     <label
-                      className="h-[14px] w-[119px] text-[14px] font-normal leading-[14px] tracking-[-0.5px] text-[#613339]"
-                      style={{ fontFamily: "MonarchaW01-Regular, serif" }}
+                      className="font-['MonarchaW01-Regular'] h-[14px] w-[119px] text-[14px] font-normal leading-[14px] tracking-[-0.5px] text-[#613339]"
                     >
                       Workshop category
                     </label>
 
                     <div className="relative h-[36px] w-[424px]">
                       <select
-                        className="box-border h-[36px] w-[424px] appearance-none rounded-[32px] border-[0.5px] border-[#B85428] bg-white pl-[12px] pr-[36px] text-[12px] font-light leading-[16px] tracking-[0px] text-[#8A5C62]/60 outline-none"
-                        style={{
-                          fontFamily: "Sofia Pro, sans-serif",
-                          paddingTop: "10px",
-                          paddingBottom: "10px",
-                        }}
+                        className="font-['Sofia_Pro'] box-border h-[36px] w-[424px] appearance-none rounded-[32px] border-[0.5px] border-[#B85428] bg-white pl-[12px] pr-[36px] text-[12px] font-light leading-[16px] tracking-[0px] text-[#8A5C62]/60 outline-none"
+                        style={{ paddingTop: "10px", paddingBottom: "10px" }}
                         defaultValue=""
                       >
                         <option value="" disabled>
@@ -224,8 +209,7 @@ export default function Hero() {
                   {/* Date & Time */}
                   <div className="flex h-[70.59px] w-[424px] flex-col gap-[8px] pt-[12px]">
                     <label
-                      className="h-[14px] w-[119px] text-[14px] font-normal leading-[14px] tracking-[-0.5px] text-[#613339]"
-                      style={{ fontFamily: "MonarchaW01-Regular, serif" }}
+                      className="font-['MonarchaW01-Regular'] h-[14px] w-[119px] text-[14px] font-normal leading-[14px] tracking-[-0.5px] text-[#613339]"
                     >
                       Date & Time
                     </label>
@@ -235,8 +219,7 @@ export default function Hero() {
                         type="text"
                         value="Sat 15 Aug · 09:30"
                         readOnly
-                        className="box-border h-[36px] w-[424px] rounded-[32px] border-[0.5px] border-[#B85428] bg-white p-[12px] pr-[44px] text-[12px] font-light leading-[16px] tracking-[0px] text-[#8A5C62]/60 outline-none"
-                        style={{ fontFamily: "Sofia Pro, sans-serif" }}
+                        className="font-['Sofia_Pro'] box-border h-[36px] w-[424px] rounded-[32px] border-[0.5px] border-[#B85428] bg-white p-[12px] pr-[44px] text-[12px] font-light leading-[16px] tracking-[0px] text-[#8A5C62]/60 outline-none"
                       />
 
                       <svg
@@ -294,8 +277,7 @@ export default function Hero() {
                   {/* Day */}
                   <div className="flex h-[68.76px] w-[424px] flex-col gap-[8px] pt-[12px]">
                     <label
-                      className="h-[14px] w-[25px] text-[14px] font-normal leading-[14px] tracking-[-0.5px] text-[#613339]"
-                      style={{ fontFamily: "MonarchaW01-Regular, serif" }}
+                      className="font-['MonarchaW01-Regular'] h-[14px] w-[25px] text-[14px] font-normal leading-[14px] tracking-[-0.5px] text-[#613339]"
                     >
                       Day
                     </label>
@@ -303,16 +285,14 @@ export default function Hero() {
                     <div className="flex h-[26.849px] w-[424px] items-center gap-[7.32px]">
                       <button
                         type="button"
-                        className="h-[26.849px] w-[97.224px] shrink-0 rounded-full border-[0.61px] border-[#61333933] bg-[#B85428] p-0 text-[12px] font-normal leading-[15px] tracking-[0px] text-[#FCEFDD]"
-                        style={{ fontFamily: "Sofia Pro, sans-serif" }}
+                        className="font-['Sofia_Pro'] h-[26.849px] w-[97.224px] shrink-0 rounded-full border-[0.61px] border-[#61333933] bg-transparent p-0 text-[12px] font-normal leading-[15px] tracking-[0px] text-[#B85428] transition-all duration-300 ease-in-out hover:bg-[#B85428] hover:text-[#FCEFDD]"
                       >
                         Saturday
                       </button>
 
                       <button
                         type="button"
-                        className="h-[26.849px] w-[97.224px] shrink-0 rounded-full border-[0.61px] border-[#61333933] bg-transparent p-0 text-[12px] font-normal leading-[15px] tracking-[0px] text-[#613339] hover:bg-[#B85428] hover:text-[#FCEFDD]"
-                        style={{ fontFamily: "Sofia Pro, sans-serif" }}
+                        className="font-['Sofia_Pro'] h-[26.849px] w-[97.224px] shrink-0 rounded-full border-[0.61px] border-[#61333933] bg-transparent p-0 text-[12px] font-normal leading-[15px] tracking-[0px] text-[#B85428] transition-all duration-300 ease-in-out hover:bg-[#B85428] hover:text-[#FCEFDD]"
                       >
                         Sunday
                       </button>
@@ -331,10 +311,7 @@ export default function Hero() {
 
                         <div className="h-[24px] w-[103.78px]">
                           <label
-                            className="block h-[24px] w-[84px] text-center text-[24px] font-medium italic leading-[24px] tracking-[-1.5px] text-[#B24924]"
-                            style={{
-                              fontFamily: "MonarchaW01-RegularItalic, serif",
-                            }}
+                            className="font-['MonarchaW01-RegularItalic'] block h-[24px] w-[84px] text-center text-[24px] font-medium italic leading-[24px] tracking-[-1.5px] text-[#B24924]"
                           >
                             AED 220
                           </label>
@@ -377,8 +354,7 @@ export default function Hero() {
                         className="relative ml-[0.42px] mt-[22.04px] h-[40px] w-[424px] shrink-0 rounded-full bg-[#B85428]"
                       >
                         <span
-                          className="absolute left-[163px] top-[8.3px] h-[24px] w-[99px] text-[14px] font-medium leading-[24px] tracking-[0px] text-[#FCEFDD]"
-                          style={{ fontFamily: "Sofia Pro, sans-serif" }}
+                          className="font-['Sofia_Pro'] absolute left-[163px] top-[8.3px] h-[24px] w-[99px] text-[14px] font-medium leading-[24px] tracking-[0px] text-[#FCEFDD]"
                         >
                           Book Workshop
                         </span>
@@ -388,8 +364,7 @@ export default function Hero() {
                     {/* Secure Payment */}
                     <div className="flex h-[27px] w-[424px] justify-center">
                       <p
-                        className="m-0 text-center text-[10px] font-normal leading-[10px] tracking-[0px] text-[#6133398C]"
-                        style={{ fontFamily: "Sofia Pro, sans-serif" }}
+                        className="font-['Sofia_Pro'] m-0 text-center text-[10px] font-normal leading-[10px] tracking-[0px] text-[#6133398C]"
                       >
                         Secure card payment &middot; Confirmation sent by email
                       </p>

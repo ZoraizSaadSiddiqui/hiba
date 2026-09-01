@@ -12,8 +12,8 @@ export default function Navbar() {
           justify-between
           rounded-[22369600px]
           border-[0.5px]
-          border-[rgba(255,255,255,0.5)]
-          bg-[linear-gradient(90deg,rgba(252,239,221,1),rgba(252,239,221,0.8))]
+          border-white
+          bg-[linear-gradient(90deg,#FCEFDD_80%,#FCEFDDCC_100%,#F5E2CB80_50%)]
           px-[24.5px]
           py-[12.5px]
           shadow-[0_36px_72px_-30px_rgba(90,41,50,0.3),0_12px_28px_-14px_rgba(90,41,50,0.2)]
@@ -31,32 +31,21 @@ export default function Navbar() {
           </div>
 
           {/* Hiba Text */}
-          <div
-            className="absolute left-[34px] top-0 m-0 flex h-[42.1px] w-[75.78px] items-start p-0 text-[33.22px] font-normal leading-[100%] tracking-[0%] text-[#6d4148]"
-            style={{ fontFamily: 'MonarchaW01-Regular, serif' }}
-          >
+          <div className="font-['MonarchaW01-Regular'] absolute left-[34px] top-0 m-0 flex h-[42.1px] w-[75.78px] items-start p-0 text-[33.22px] font-normal leading-[100%] tracking-[0%] text-[#6d4148]">
             Hiba
           </div>
 
           {/* by Anthalora Text */}
-          <div
-            className="absolute left-[53.76px] top-[34.33px] flex h-[11px] w-[55px] items-center text-[9.07px] font-normal leading-[100%] tracking-[-0.005em] text-[#6d4148]"
-            style={{ fontFamily: 'MonarchaW01-Regular, serif' }}
-          >
+          <div className="font-['MonarchaW01-Regular'] absolute left-[53.76px] top-[34.33px] flex h-[11px] w-[55px] items-center text-[9.07px] font-normal leading-[100%] tracking-[-0.005em] text-[#6d4148]">
             by Anthalora
           </div>
         </div>
 
         {/* Navigation List */}
         <div className="flex h-[24px] items-center gap-[24px]">
-          <button
-            type="button"
-            className="
-              flex items-center gap-0
-              border-0 bg-transparent p-0
-              text-[14px] font-light leading-[100%] tracking-[0.2px] text-[#6d4148]
-            "
-            style={{ fontFamily: 'Sofia Pro, sans-serif' }}
+          <a
+            href="#clinic-services"
+            className="flex items-center gap-0 rounded-full border-0 bg-transparent px-[12px] py-[6px] font-['Sofia_Pro'] text-[12px] font-normal leading-[100%] tracking-[0.2px] text-[#6d4148] no-underline transition-all duration-300 ease-in-out hover:text-[#613339] hover:text-[14px] hover:font-[400] hover:leading-[100%] hover:tracking-[0.2px]"
           >
             Clinic Services
             <svg
@@ -67,44 +56,39 @@ export default function Navbar() {
             >
               <path d="M7 10l5 5 5-5H7z" fill="currentColor" />
             </svg>
-          </button>
+          </a>
 
           <a
             href="#group-skills"
-            className="whitespace-nowrap text-[14px] font-light leading-[100%] tracking-[0.2px] text-[#6d4148] no-underline"
-            style={{ fontFamily: 'Sofia Pro, sans-serif' }}
+            className="whitespace-nowrap rounded-full px-[12px] py-[6px] font-['Sofia_Pro'] text-[12px] font-normal leading-[100%] tracking-[0.2px] text-[#6d4148] no-underline transition-all duration-300 ease-in-out hover:text-[#613339] hover:text-[14px] hover:font-[400] hover:leading-[100%] hover:tracking-[0.2px]"
           >
             Group Skills Building
           </a>
 
           <a
             href="#school-partnerships"
-            className="whitespace-nowrap text-[14px] font-light leading-[100%] tracking-[0.2px] text-[#6d4148] no-underline"
-            style={{ fontFamily: 'Sofia Pro, sans-serif' }}
+            className="whitespace-nowrap rounded-full px-[12px] py-[6px] font-['Sofia_Pro'] text-[12px] font-normal leading-[100%] tracking-[0.2px] text-[#6d4148] no-underline transition-all duration-300 ease-in-out hover:text-[#613339] hover:text-[14px] hover:font-[400] hover:leading-[100%] hover:tracking-[0.2px]"
           >
             School Partnerships
           </a>
 
           <a
             href="#referrals"
-            className="whitespace-nowrap text-[14px] font-light leading-[100%] tracking-[0.2px] text-[#6d4148] no-underline"
-            style={{ fontFamily: 'Sofia Pro, sans-serif' }}
+            className="whitespace-nowrap rounded-full px-[12px] py-[6px] font-['Sofia_Pro'] text-[12px] font-normal leading-[100%] tracking-[0.2px] text-[#6d4148] no-underline transition-all duration-300 ease-in-out hover:text-[#613339] hover:text-[14px] hover:font-[400] hover:leading-[100%] hover:tracking-[0.2px]"
           >
             Referrals
           </a>
 
           <a
             href="#about"
-            className="whitespace-nowrap text-[14px] font-light leading-[100%] tracking-[0.2px] text-[#6d4148] no-underline"
-            style={{ fontFamily: 'Sofia Pro, sans-serif' }}
+            className="whitespace-nowrap rounded-full px-[12px] py-[6px] font-['Sofia_Pro'] text-[12px] font-normal leading-[100%] tracking-[0.2px] text-[#6d4148] no-underline transition-all duration-300 ease-in-out hover:text-[#613339] hover:text-[14px] hover:font-[400] hover:leading-[100%] hover:tracking-[0.2px]"
           >
             About Us
           </a>
 
           <a
             href="#contact"
-            className="whitespace-nowrap text-[14px] font-light leading-[100%] tracking-[0.2px] text-[#6d4148] no-underline"
-            style={{ fontFamily: 'Sofia Pro, sans-serif' }}
+            className="whitespace-nowrap rounded-full px-[12px] py-[6px] font-['Sofia_Pro'] text-[12px] font-normal leading-[100%] tracking-[0.2px] text-[#6d4148] no-underline transition-all duration-300 ease-in-out hover:text-[#613339] hover:text-[14px] hover:font-[400] hover:leading-[100%] hover:tracking-[0.2px]"
           >
             Contact
           </a>
@@ -114,6 +98,7 @@ export default function Navbar() {
         <button
           type="button"
           className="
+            font-['Sofia_Pro']
             flex h-[42px] min-w-[164px]
             shrink-0 items-center justify-center
             rounded-[22369600px]
@@ -122,7 +107,6 @@ export default function Navbar() {
             text-[14px] font-medium
             leading-[100%] tracking-[0.2px] text-white
           "
-          style={{ fontFamily: 'Sofia Pro, sans-serif' }}
         >
           Book a Consultation
         </button>
