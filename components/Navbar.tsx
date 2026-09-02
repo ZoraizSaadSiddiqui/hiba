@@ -20,34 +20,41 @@ export default function Navbar() {
         "
       >
         {/* Logo */}
-        <div className="relative h-[45.33px] w-[109.78px] shrink-0">
-          {/* Symbol */}
-          <div className="absolute left-0 top-[8.1px] h-[28.5px] w-[28.26px]">
-            <img
-              src="/Group.png"
-              alt=""
-              className="h-full w-full object-contain"
-            />
-          </div>
+        {/* Logo */}
+<div className="relative flex h-[45.33px] w-[109.78px] shrink-0 items-center">
 
-          {/* Hiba Text */}
-          <div className="font-['MonarchaW01-Regular'] absolute left-[34px] top-0 m-0 flex h-[42.1px] w-[75.78px] items-start p-0 text-[33.22px] font-normal leading-[100%] tracking-[0%] text-[#6d4148]">
-            Hiba
-          </div>
+  {/* Symbol */}
+  <div className="absolute left-0 top-1/2 h-[28.5px] w-[28.26px] -translate-y-1/2">
+    <img
+      src="/Group.png"
+      alt=""
+      className="h-full w-full object-contain"
+    />
+  </div>
 
-          {/* by Anthalora Text */}
-          <div className="font-['MonarchaW01-Regular'] absolute left-[53.76px] top-[34.33px] flex h-[11px] w-[55px] items-center text-[9.07px] font-normal leading-[100%] tracking-[-0.005em] text-[#6d4148]">
-            by Anthalora
-          </div>
-        </div>
+  {/* Hiba + by Anthalora Group */}
+  <div className="absolute left-[34px] top-1/2 flex h-[45.33px] w-[75.78px] -translate-y-1/2 flex-col justify-center">
+    
+    {/* Hiba */}
+    <div className="font-monarcha m-0 h-[32px] w-[75.78px] text-[32px] font-normal leading-[100%] tracking-[0%] text-[#6d4148]">
+      Hiba
+    </div>
 
+    {/* by Anthalora */}
+    <div className="font-monarcha ml-[19.76px] h-[11px] w-[55px] text-[10px] font-normal leading-[100%] tracking-[-0.005em] text-[#6d4148]">
+      by Anthalora
+    </div>
+
+  </div>
+</div>
         {/* Navigation List */}
-        <div className="flex h-[24px] items-center gap-[24px]">
+        <div className="flex h-[24px] flex-1 items-center justify-center gap-[4px]">
           <a
             href="#clinic-services"
-            className="flex items-center gap-0 rounded-full border-0 bg-transparent px-[12px] py-[6px] font-['Sofia_Pro'] text-[12px] font-normal leading-[100%] tracking-[0.2px] text-[#6d4148] no-underline transition-all duration-300 ease-in-out hover:text-[#613339] hover:text-[14px] hover:font-[400] hover:leading-[100%] hover:tracking-[0.2px]"
+            className="flex items-center gap-0 whitespace-nowrap rounded-full border-0 bg-transparent px-[12px] py-[6px] font-sofia text-[16px] font-normal leading-[100%] tracking-[0.2px] text-[#6d4148] no-underline transition-all duration-300 ease-in-out hover:text-[#613339] hover:text-[14px] hover:font-[400] hover:leading-[100%] hover:tracking-[0.2px]"
           >
             Clinic Services
+
             <svg
               className="h-[24px] w-[24px]"
               viewBox="0 0 24 24"
@@ -60,35 +67,35 @@ export default function Navbar() {
 
           <a
             href="#group-skills"
-            className="whitespace-nowrap rounded-full px-[12px] py-[6px] font-['Sofia_Pro'] text-[12px] font-normal leading-[100%] tracking-[0.2px] text-[#6d4148] no-underline transition-all duration-300 ease-in-out hover:text-[#613339] hover:text-[14px] hover:font-[400] hover:leading-[100%] hover:tracking-[0.2px]"
+            className="whitespace-nowrap rounded-full px-[12px] py-[6px] font-sofia text-[16px] font-normal leading-[100%] tracking-[0.2px] text-[#6d4148] no-underline transition-all duration-300 ease-in-out hover:text-[#613339] hover:text-[14px] hover:font-[400] hover:leading-[100%] hover:tracking-[0.2px]"
           >
             Group Skills Building
           </a>
 
           <a
             href="#school-partnerships"
-            className="whitespace-nowrap rounded-full px-[12px] py-[6px] font-['Sofia_Pro'] text-[12px] font-normal leading-[100%] tracking-[0.2px] text-[#6d4148] no-underline transition-all duration-300 ease-in-out hover:text-[#613339] hover:text-[14px] hover:font-[400] hover:leading-[100%] hover:tracking-[0.2px]"
+            className="whitespace-nowrap rounded-full px-[12px] py-[6px] font-sofia text-[16px] font-normal leading-[100%] tracking-[0.2px] text-[#6d4148] no-underline transition-all duration-300 ease-in-out hover:text-[#613339] hover:text-[14px] hover:font-[400] hover:leading-[100%] hover:tracking-[0.2px]"
           >
             School Partnerships
           </a>
 
           <a
             href="#referrals"
-            className="whitespace-nowrap rounded-full px-[12px] py-[6px] font-['Sofia_Pro'] text-[12px] font-normal leading-[100%] tracking-[0.2px] text-[#6d4148] no-underline transition-all duration-300 ease-in-out hover:text-[#613339] hover:text-[14px] hover:font-[400] hover:leading-[100%] hover:tracking-[0.2px]"
+            className="whitespace-nowrap rounded-full px-[12px] py-[6px] font-sofia text-[16px] font-normal leading-[100%] tracking-[0.2px] text-[#6d4148] no-underline transition-all duration-300 ease-in-out hover:text-[#613339] hover:text-[14px] hover:font-[400] hover:leading-[100%] hover:tracking-[0.2px]"
           >
             Referrals
           </a>
 
           <a
             href="#about"
-            className="whitespace-nowrap rounded-full px-[12px] py-[6px] font-['Sofia_Pro'] text-[12px] font-normal leading-[100%] tracking-[0.2px] text-[#6d4148] no-underline transition-all duration-300 ease-in-out hover:text-[#613339] hover:text-[14px] hover:font-[400] hover:leading-[100%] hover:tracking-[0.2px]"
+            className="whitespace-nowrap rounded-full px-[12px] py-[6px] font-sofia text-[16px] font-normal leading-[100%] tracking-[0.2px] text-[#6d4148] no-underline transition-all duration-300 ease-in-out hover:text-[#613339] hover:text-[14px] hover:font-[400] hover:leading-[100%] hover:tracking-[0.2px]"
           >
             About Us
           </a>
 
           <a
             href="#contact"
-            className="whitespace-nowrap rounded-full px-[12px] py-[6px] font-['Sofia_Pro'] text-[12px] font-normal leading-[100%] tracking-[0.2px] text-[#6d4148] no-underline transition-all duration-300 ease-in-out hover:text-[#613339] hover:text-[14px] hover:font-[400] hover:leading-[100%] hover:tracking-[0.2px]"
+            className="whitespace-nowrap rounded-full px-[12px] py-[6px] font-sofia text-[16px] font-normal leading-[100%] tracking-[0.2px] text-[#6d4148] no-underline transition-all duration-300 ease-in-out hover:text-[#613339] hover:text-[14px] hover:font-[400] hover:leading-[100%] hover:tracking-[0.2px]"
           >
             Contact
           </a>
@@ -98,14 +105,22 @@ export default function Navbar() {
         <button
           type="button"
           className="
-            font-['Sofia_Pro']
-            flex h-[42px] min-w-[164px]
-            shrink-0 items-center justify-center
+            font-sofia
+            flex
+            h-[42px]
+            min-w-[164px]
+            shrink-0
+            items-center
+            justify-center
             rounded-[22369600px]
-            border-0 bg-[#63343d]
+            border-0
+            bg-[#63343d]
             px-[24px]
-            text-[14px] font-medium
-            leading-[100%] tracking-[0.2px] text-white
+            text-[18px]
+            font-medium
+            leading-[100%]
+            tracking-[0.2px]
+            text-white
           "
         >
           Book a Consultation
