@@ -1,6 +1,19 @@
 "use client";
 
-import React, { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+
+/* =========================
+   SPACING SCALE (single source of truth)
+
+   4  -> gap-1 / p-1
+   8  -> gap-2 / p-2
+   12 -> gap-3 / p-3
+   16 -> gap-4 / p-4
+   24 -> gap-6 / p-6
+   32 -> gap-8 / p-8
+   40 -> gap-10 / p-10
+   96 -> py-24
+========================= */
 
 interface Workshop {
   id: number;
@@ -19,6 +32,7 @@ interface Workshop {
     | "Limited places"
     | "Fully booked"
     | "Book a Class";
+  note?: string;
 }
 
 const workshops: Workshop[] = [
@@ -28,7 +42,7 @@ const workshops: Workshop[] = [
     category: "SENSORY LAB",
     title: "Slime Science Lab",
     description:
-      "Create cloud slime, butter slime, clear slime and crunchy slime — then discover",
+      "Create cloud slime, butter slime, clear slime and crunchy slime — then discover the neuroscience behind why each one affects your brain differently.",
     ageRange: "7–14 Years",
     duration: "60 Minutes",
     price: "AED 220",
@@ -43,7 +57,7 @@ const workshops: Workshop[] = [
     category: "YOUNG CHEFS",
     title: "Sushi Art & Nutrition Lab",
     description:
-      "Turn microwave-cooked rice and colourful toppings into edible works of art —",
+      "Turn microwave-cooked rice and colourful toppings into edible works of art — with a twist: your design must also be perfectly balanced.",
     ageRange: "6–12 Years",
     duration: "60 Minutes",
     price: "AED 350",
@@ -58,7 +72,7 @@ const workshops: Workshop[] = [
     category: "YOUNG CHEFS",
     title: "Matcha Latte Art Lab",
     description:
-      "Learn the ceremonial technique behind the world's most photographed drink,",
+      "Learn the ceremonial technique behind the world's most photographed drink, master the perfect whisk and create your own layered latte art to take home.",
     ageRange: "13–18 Years",
     duration: "60 Minutes",
     price: "AED 230",
@@ -71,9 +85,9 @@ const workshops: Workshop[] = [
     id: 4,
     day: "THURSDAY",
     category: "BUILD LAB",
-    title: "Marble Roller Coaster Studio",
+    title: "Bubble Tea Lab",
     description:
-      "Steep the pearls, choose your flavours and shake, layer and sip a bubble tea",
+      "Steep the pearls, choose your flavours and shake, layer and sip a bubble tea that's entirely your own creation.",
     ageRange: "6–12 Years",
     duration: "60 Minutes",
     price: "AED 320",
@@ -86,9 +100,9 @@ const workshops: Workshop[] = [
     id: 5,
     day: "WEDNESDAY",
     category: "YOUNG CHEFS",
-    title: "Boba Tea Lab",
+    title: "Marble Roller Coaster Studio",
     description:
-      "Design a thrilling marble roller coaster — then work as a team to connect",
+      "Design a thrilling marble roller coaster — then work as a team to connect them all into one incredible mega-track.",
     ageRange: "6–12 Years",
     duration: "60 Minutes",
     price: "AED 250",
@@ -103,7 +117,7 @@ const workshops: Workshop[] = [
     category: "FIX IT LAB",
     title: "Robot Repair Workshop",
     description:
-      "Become robot engineers, investigate faults and repair a collection of mystery",
+      "Become robot engineers, investigate faults and repair a collection of mystery robots and electronic gadgets — then document every step on a tablet.",
     ageRange: "6–12 Years",
     duration: "60 Minutes",
     price: "AED 230",
@@ -118,7 +132,7 @@ const workshops: Workshop[] = [
     category: "FIX IT LAB",
     title: "Impossible Inventions Workshop",
     description:
-      "Every team receives the same sealed box filled with strange objects. Your",
+      "Every team receives the same sealed box filled with strange objects. Your mission: invent a working machine — then pitch it to our panel of investors.",
     ageRange: "6–12 Years",
     duration: "60 Minutes",
     price: "AED 230",
@@ -141,6 +155,7 @@ const workshops: Workshop[] = [
     time: "3:00 PM",
     facilitator: "Occupational Therapist",
     availability: "Available",
+    note: "Bracelet Bar (Girls only)",
   },
 ];
 
@@ -191,62 +206,39 @@ function Badge({
 }) {
   if (variant === "day") {
     return (
-      <div
+      <span
         className="
-          box-border
-          inline-flex
-          h-[23px]
-          w-[77px]
-          shrink-0
-          items-center
-          justify-center
-          overflow-hidden
-          rounded-[22369600px]
+          inline-flex items-center justify-center
+          whitespace-nowrap
+          rounded-full
           bg-[#C1652F]
-          px-[12px]
-          py-[4px]
-          font-sofia
-          text-[10px]
-          font-normal
-          leading-[15px]
-          tracking-[1.6px]
-          uppercase
+          px-3 py-1
+          font-sofia text-[10px] font-normal uppercase
+          leading-[15px] tracking-[1.6px]
           text-[#FCEFDD]
         "
       >
-        <span className="whitespace-nowrap">{label}</span>
-      </div>
+        {label}
+      </span>
     );
   }
 
   return (
-    <div
+    <span
       className="
-        box-border
-        inline-flex
-        h-[24.33333396911621px]
-        w-[106.33333587646484px]
-        shrink-0
-        items-center
-        justify-center
-        overflow-hidden
-        rounded-[22369600px]
-        border-[0.67px]
-        border-[#C1652F]/30
+        inline-flex items-center justify-center
+        whitespace-nowrap
+        rounded-full
+        border border-[#C1652F]/30
         bg-[#C1652F]/12
-        px-[12px]
-        py-[4px]
-        font-sofia
-        text-[10px]
-        font-normal
-        leading-[15px]
-        tracking-[1.6px]
-        uppercase
+        px-3 py-1
+        font-sofia text-[10px] font-normal uppercase
+        leading-[15px] tracking-[1.6px]
         text-[#62343A]
       "
     >
-      <span className="whitespace-nowrap">{label}</span>
-    </div>
+      {label}
+    </span>
   );
 }
 
@@ -264,20 +256,11 @@ function AvailabilityLabel({
   return (
     <span
       className={`
-        inline-block
-        h-[16px]
         whitespace-nowrap
-        font-['Inter']
-        text-[12px]
-        font-medium
-        leading-[16px]
-        tracking-[0px]
+        font-['Inter'] text-[12px] font-medium
+        leading-[16px] tracking-[0px]
         text-[#C1652F]
-        ${
-          isFullyBooked
-            ? "w-[73px] opacity-50"
-            : "w-[52px] opacity-100"
-        }
+        ${isFullyBooked ? "opacity-50" : "opacity-100"}
       `}
     >
       {status}
@@ -297,95 +280,105 @@ function BookingButton({
   const isFullyBooked = availability === "Fully booked";
 
   return (
-    <div className="flex w-[176px] h-[112px] flex-col items-center gap-[8px]">
-      <button
-        type="button"
-        disabled={isFullyBooked}
-        className={`
-          flex
-          w-[176px]
-          h-[36px]
-          items-center
-          justify-center
-          gap-[6px]
-          rounded-[22369600px]
-          px-[20px]
-          py-[10px]
-          font-sofia
-          text-[11px]
-          font-semibold
-          tracking-[0.02em]
-          text-white
-          transition-opacity
-          duration-300
-          ease-in-out
-          hover:opacity-90
-          disabled:cursor-not-allowed
-          ${
-            isFullyBooked
-              ? "bg-[#C1652F] opacity-40"
-              : "bg-[#C1652F] opacity-100"
-          }
-        `}
-      >
-        {!isFullyBooked && <span>+</span>}
-        Add to booking
-      </button>
+    <div className="flex h-full w-full flex-col items-stretch sm:w-44">
+      <div className="flex flex-col gap-2">
+        <button
+          type="button"
+          disabled={isFullyBooked}
+          className={`
+            flex w-full items-center justify-center gap-1.5
+            rounded-full
+            bg-[#C1652F]
+            px-5 py-2.5
+            font-sofia text-[11px] font-semibold
+            tracking-[0.02em]
+            text-white
+            transition-opacity duration-300 ease-in-out
+            hover:opacity-90
+            disabled:cursor-not-allowed
+            ${isFullyBooked ? "opacity-40" : "opacity-100"}
+          `}
+        >
+          {!isFullyBooked && <span>+</span>}
+          Add to booking
+        </button>
 
-      <button
-        type="button"
+        <button
+          type="button"
+          className="
+            flex w-full items-center justify-center
+            rounded-full
+            border border-[#C1652F40]
+            px-6 py-2.5
+            font-sofia text-[12px] font-medium
+            leading-[16px] tracking-[0px]
+            text-[#613339]
+            transition-opacity duration-300 ease-in-out
+            hover:opacity-70
+          "
+        >
+          {availability === "Fully booked"
+            ? "Book a Class"
+            : "Book Workshop"}
+        </button>
+      </div>
+
+      <div className="flex flex-1 flex-col pt-2">
+        
+         <a href="#"
+          className="
+            flex items-center justify-center
+            py-1
+            font-sofia text-[12px] font-medium
+            leading-[16px] tracking-[0px]
+            text-[#C1652F]
+            underline decoration-[#C1652F]
+            underline-offset-2
+            transition-opacity duration-300 ease-in-out
+            hover:opacity-70
+          "
+        >
+          More Info
+        </a>
+      </div>
+    </div>
+  );
+}
+
+/* =========================
+   DETAIL FIELD
+========================= */
+
+function DetailField({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="flex min-w-0 flex-col gap-1">
+      <p
         className="
-          flex
-          w-[176px]
-          h-[36px]
-          items-center
-          justify-center
-          rounded-[22369600px]
-          border
-          border-[#C1652F40]
-          px-[28px]
-          font-sofia
-          text-[12px]
-          font-medium
-          leading-[16px]
-          tracking-[0px]
-          text-[#613339]
-          transition-opacity
-          duration-300
-          ease-in-out
-          hover:opacity-70
+          font-sofia text-[9px] font-semibold uppercase
+          leading-normal tracking-[0.12em]
+          text-[#8A5C62] opacity-80
         "
       >
-        {availability === "Fully booked"
-          ? "Book a Class"
-          : "Book Workshop"}
-      </button>
+        {label}
+      </p>
 
-      <a
-        href="#"
+      <div
         className="
-          flex
-          w-[54px]
-          h-[16px]
-          items-center
-          justify-center
-          font-sofia
-          text-[12px]
-          font-medium
-          leading-[16px]
-          tracking-[0px]
-          text-[#C1652F]
-          underline
-          decoration-[#C1652F]
-          underline-offset-0
-          transition-opacity
-          duration-300
-          ease-in-out
-          hover:opacity-70
+          min-w-0
+          whitespace-nowrap
+          font-['Sofia_Pro'] text-[12px] font-normal
+          leading-[18px] tracking-[1px] capitalize
+          text-[#8A5C62]
         "
       >
-        More Info
-      </a>
+        {children}
+      </div>
     </div>
   );
 }
@@ -394,538 +387,142 @@ function BookingButton({
    WORKSHOP CARD
 ========================= */
 
-function WorkshopCard({
-  workshop,
-}: {
-  workshop: Workshop;
-}) {
+function WorkshopCard({ workshop }: { workshop: Workshop }) {
+  const isHighlighted = Boolean(workshop.note);
+
   return (
     <div
-      className="
+      className={`
         group
-        box-border
-        flex
-        h-[169.9687042236328px]
-        w-[1239px]
-        rounded-[24px]
-        border-[0.67px]
-        border-[#C1652F]/30
-        bg-[#FCEFDD]
-        p-[24px]
-        transition-all
-        duration-500
-        ease-in-out
-        hover:h-[209.33334350585938px]
-        hover:w-[1239px]
-        hover:rounded-[24px]
-        hover:border-[2px]
-        hover:border-t-[2px]
-        hover:border-[#C1652F]
-        hover:bg-[#F9DEB9]
-      "
+        flex flex-col gap-6
+        rounded-3xl
+        p-6
+        transition-all duration-500 ease-in-out
+        lg:flex-row
+        ${isHighlighted ? "lg:items-start" : "lg:items-stretch"}
+
+        ${
+          isHighlighted
+            ? "border-2 border-[#C1652F] bg-[#FCE7C6]"
+            : "border-[0.67px] border-[#C1652F]/30 bg-[#FCEFDD] hover:border-2 hover:border-[#C1652F] hover:bg-[#FCE7C6]"
+        }
+      `}
     >
-      <div className="flex w-full items-start gap-4">
+      {/* LEFT */}
 
-        {/* LEFT */}
-
-        <div
-          className="
-            h-[116.33333587646484px]
-            w-[505.5px]
-            shrink-0
-          "
-        >
-          {workshop.id === 8 && (
-            <div
-              className="
-                h-[23px]
-                w-[189px]
-                shrink-0
-                whitespace-nowrap
-                font-sofia
-                text-[10px]
-                font-semibold
-                leading-[15px]
-                tracking-[1.6px]
-                uppercase
-                text-[#613339]
-                opacity-100
-                transition-all
-                duration-500
-                ease-in-out
-              "
-            >
-              • BRACELET BAR (GIRLS ONLY)
-            </div>
-          )}
-
-          {/* BADGES */}
-
-          <div
+      <div className="flex min-w-0 flex-1 flex-col gap-3">
+        {workshop.note && (
+          <p
             className="
-              flex
-              h-[24.33333396911621px]
-              w-full
-              items-start
-              gap-[8px]
+              font-sofia text-[10px] font-semibold uppercase
+              leading-[15px] tracking-[1.6px]
+              text-[#613339]
             "
           >
-            <Badge
-              label={workshop.day}
-              variant="day"
-            />
+            • {workshop.note}
+          </p>
+        )}
 
-            <Badge
-              label={workshop.category}
-              variant="category"
-            />
-          </div>
-
-          {/* TITLE */}
-
-          <div
-            className="
-              box-border
-              h-[44px]
-              w-[553px]
-              pt-[12px]
-              opacity-100
-            "
-          >
-            <h3
-              className="
-                m-0
-                h-[32px]
-                w-fit
-                whitespace-nowrap
-                font-['MonarchaW01-Regular']
-                text-[24px]
-                font-normal
-                leading-[32px]
-                tracking-[-0.5px]
-                text-left
-                text-[#613339]
-                opacity-100
-              "
-            >
-              {workshop.title}
-            </h3>
-          </div>
-
-          {/* DESCRIPTION */}
-
-          <div
-            className="
-              box-border
-              h-[56px]
-              w-[505.5px]
-              max-w-[576px]
-              pt-[8px]
-              opacity-100
-            "
-          >
-            <p
-              className="
-                m-0
-                max-w-[505.5px]
-                font-sofia
-                text-[13px]
-                font-normal
-                leading-[20px]
-                text-[#5A3A2E]
-              "
-            >
-              {workshop.id === 1 && (
-                <>
-                  Create cloud slime, butter slime, clear slime and crunchy slime — then discover
-                  <br />
-                  the neuroscience behind why each one affects your brain differently.
-                </>
-              )}
-
-              {workshop.id === 2 && (
-                <>
-                  Turn microwave-cooked rice and colourful toppings into edible works of art —
-                  <br />
-                  with a twist: your design must also be perfectly balanced.
-                </>
-              )}
-
-              {workshop.id === 3 && (
-                <>
-                  Learn the ceremonial technique behind the world's most photographed drink,
-                  <br />
-                  master the perfect whisk and create your own layered latte art to take home.
-                </>
-              )}
-
-              {workshop.id === 4 && (
-                <>
-                  Steep the pearls, choose your flavours and shake, layer and sip a bubble tea
-                  <br />
-                  that's entirely your own creation.
-                </>
-              )}
-
-              {workshop.id === 5 && (
-                <>
-                  Design a thrilling marble roller coaster — then work as a team to connect
-                  <br />
-                  them all into one incredible mega-track.
-                </>
-              )}
-
-              {workshop.id === 6 && (
-                <>
-                  Become robot engineers, investigate faults and repair a collection of mystery
-                  <br />
-                  robots and electronic gadgets — then document every step on a tablet.
-                </>
-              )}
-
-              {workshop.id === 7 && (
-                <>
-                  Every team receives the same sealed box filled with strange objects. Your
-                  <br />
-                  mission invent a working machine — then pitch it to our panel of investors.
-                </>
-              )}
-
-              {workshop.id === 8 && (
-                <>
-                  Choose your beads, design a signature pattern and price your own
-                  <br />
-                  bracelet collection like a real boutique designer.
-                </>
-              )}
-            </p>
-          </div>
-        </div>
-
-        {/* MIDDLE */}
-
-        <div
-          className="
-            grid
-            h-[117.96px]
-            w-[395px]
-            grid-cols-2
-            grid-rows-3
-            gap-x-[16px]
-            gap-y-[12px]
-          "
-        >
-          {/* COLUMN 1 — ROW 1 */}
-
-          <div
-            className="
-              row-start-1
-              col-start-1
-              col-span-1
-              row-span-1
-              h-[31.32px]
-              w-[189.5px]
-              opacity-100
-            "
-          >
-            <div className="h-[18px] w-[189.5px]">
-              <p
-                className="
-                  h-[18px]
-                  w-[74px]
-                  font-sofia
-                  text-[9px]
-                  font-semibold
-                  uppercase
-                  leading-normal
-                  tracking-[0.12em]
-                  text-[#8A5C62]
-                  opacity-80
-                "
-              >
-                Age range
-              </p>
-            </div>
-
-            <div className="h-[18px] w-[189.5px] pt-[2px]">
-              <p
-                className="
-                  m-0
-                  h-[18px]
-                  w-[189.5px]
-                  whitespace-nowrap
-                  font-['Sofia_Pro']
-                  text-[12px]
-                  font-normal
-                  leading-[18px]
-                  tracking-[1px]
-                  capitalize
-                  text-[#8A5C62]
-                  opacity-100
-                "
-              >
-                {workshop.ageRange}
-              </p>
-            </div>
-          </div>
-
-          {/* COLUMN 2 — ROW 1 */}
-
-          <div
-            className="
-              row-start-1
-              col-start-2
-              col-span-1
-              row-span-1
-              h-[31.322917938232422px]
-              w-[189.5px]
-              opacity-100
-            "
-          >
-            <div className="h-[18px] w-[189.5px]">
-              <p
-                className="
-                  h-[18px]
-                  w-[74px]
-                  font-sofia
-                  text-[9px]
-                  font-semibold
-                  uppercase
-                  leading-normal
-                  tracking-[0.12em]
-                  text-[#8A5C62]
-                  opacity-80
-                "
-              >
-                Date & time
-              </p>
-            </div>
-
-            <div className="h-[18px] w-[189.5px] pt-[2px]">
-              <p
-                className="
-                  h-[18px]
-                  w-[189.5px]
-                  whitespace-nowrap
-                  font-['Sofia_Pro']
-                  text-[12px]
-                  font-normal
-                  leading-[18px]
-                  tracking-[1px]
-                  capitalize
-                  text-[#8A5C62]
-                  opacity-100
-                "
-              >
-                {workshop.date} · {workshop.time}
-              </p>
-            </div>
-          </div>
-
-          {/* COLUMN 1 — ROW 2 */}
-
-          <div
-            className="
-              row-start-2
-              col-start-1
-              col-span-1
-              row-span-1
-              h-[31.322917938232422px]
-              w-[189.5px]
-              opacity-100
-            "
-          >
-            <div className="h-[14px] w-[189.5px] opacity-100">
-              <p
-                className="
-                  h-[14px]
-                  w-[61px]
-                  font-['Inter']
-                  text-[10px]
-                  font-normal
-                  uppercase
-                  leading-[13.33px]
-                  tracking-[1.4px]
-                  text-[#61333980]
-                  opacity-100
-                "
-              >
-                Duration
-              </p>
-            </div>
-
-            <div className="h-[18px] w-[189.5px] pt-[2px] opacity-100">
-              <p
-                className="
-                  h-[18px]
-                  w-[70px]
-                  font-['Sofia_Pro']
-                  text-[12px]
-                  font-normal
-                  leading-[18px]
-                  tracking-[1px]
-                  capitalize
-                  text-[#8A5C62]
-                  opacity-100
-                "
-              >
-                {workshop.duration}
-              </p>
-            </div>
-          </div>
-
-          {/* COLUMN 2 — ROW 2 */}
-
-          <div
-            className="
-              row-start-2
-              col-start-2
-              col-span-1
-              row-span-1
-              h-[31.32px]
-              w-[189.5px]
-              opacity-100
-            "
-          >
-            <div className="h-[14px] w-[189.5px] opacity-100">
-              <p
-                className="
-                  h-[14px]
-                  w-[61px]
-                  font-['Inter']
-                  text-[10px]
-                  font-normal
-                  uppercase
-                  leading-[13.33px]
-                  tracking-[1.4px]
-                  text-[#61333980]
-                  opacity-100
-                "
-              >
-                Facilitator
-              </p>
-            </div>
-
-            <div className="h-[18px] w-[189.5px] pt-[2px] opacity-100">
-              <p
-                className="
-                  h-[18px]
-                  w-[189.5px]
-                  whitespace-nowrap
-                  font-['Sofia_Pro']
-                  text-[12px]
-                  font-normal
-                  leading-[18px]
-                  tracking-[1px]
-                  capitalize
-                  text-[#8A5C62]
-                  opacity-100
-                "
-              >
-                {workshop.facilitator}
-              </p>
-            </div>
-          </div>
-
-          {/* COLUMN 1 — ROW 3 */}
-
-          <div
-            className="
-              row-start-3
-              col-start-1
-              col-span-1
-              row-span-1
-              h-[31.322917938232422px]
-              w-[189.5px]
-              opacity-100
-            "
-          >
-            <div className="h-[18px] w-[189.5px] opacity-100">
-              <p
-                className="
-                  h-[18px]
-                  w-[82px]
-                  font-['Sofia_Pro']
-                  text-[12px]
-                  font-light
-                  uppercase
-                  leading-[18px]
-                  tracking-[1px]
-                  text-[#8A5C62]
-                  opacity-80
-                "
-              >
-                Price
-              </p>
-            </div>
-
-            <div className="h-[18px] w-[189.5px] pt-[2px] opacity-100">
-              <p
-                className="
-                  h-[18px]
-                  w-[130px]
-                  font-['Sofia_Pro']
-                  text-[12px]
-                  font-normal
-                  capitalize
-                  leading-[18px]
-                  tracking-[1px]
-                  text-[#8A5C62]
-                  opacity-100
-                "
-              >
-                {workshop.price}
-              </p>
-            </div>
-          </div>
-
-          {/* COLUMN 2 — ROW 3 */}
-
-          <div
-            className="
-              row-start-3
-              col-start-2
-              col-span-1
-              row-span-1
-              h-[31.322917938232422px]
-              w-[189.5px]
-              opacity-100
-            "
-          >
-            <div className="h-[18px] w-[189.5px] opacity-100">
-              <p
-                className="
-                  h-[18px]
-                  w-[82px]
-                  font-['Sofia_Pro']
-                  text-[12px]
-                  font-light
-                  uppercase
-                  leading-[18px]
-                  tracking-[1px]
-                  text-[#8A5C62]
-                  opacity-80
-                "
-              >
-                Availability
-              </p>
-            </div>
-
-            <div className="h-[18px] w-[189.5px] pt-[2px] opacity-100">
-              <AvailabilityLabel
-                status={workshop.availability}
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* RIGHT */}
-
-        <div className="flex w-[176px] h-[112px] gap-[8px]">
-          <BookingButton
-            availability={workshop.availability}
+        <div className="flex flex-wrap items-center gap-2">
+          <Badge label={workshop.day} variant="day" />
+          <Badge
+            label={workshop.category}
+            variant="category"
           />
         </div>
+
+        <h3
+          className="
+            font-['MonarchaW01-Regular']
+            text-[24px] font-normal
+            leading-[32px] tracking-[-0.5px]
+            text-[#613339]
+          "
+        >
+          {workshop.title}
+        </h3>
+
+        <p
+          className="
+            max-w-[520px]
+            font-sofia text-[13px] font-normal
+            leading-[20px]
+            text-[#5A3A2E]
+          "
+        >
+          {workshop.description}
+        </p>
+      </div>
+
+      {/* MIDDLE */}
+
+      <div
+        className="
+          flex flex-1 flex-col
+          lg:w-[400px]
+          lg:flex-none
+        "
+      >
+        {/* Equal 2 columns */}
+
+        <div className="grid grid-cols-2 gap-x-6 gap-y-3">
+          <div className="min-w-0">
+            <DetailField label="Age range">
+              {workshop.ageRange}
+            </DetailField>
+          </div>
+
+          <div className="min-w-0">
+            <DetailField label="Date & time">
+              {workshop.date} · {workshop.time}
+            </DetailField>
+          </div>
+
+          <div className="min-w-0">
+            <DetailField label="Duration">
+              {workshop.duration}
+            </DetailField>
+          </div>
+
+          <div className="min-w-0">
+            <DetailField label="Facilitator">
+              {workshop.facilitator}
+            </DetailField>
+          </div>
+        </div>
+
+        {/* Price / Availability */}
+
+        <div
+          className={`
+            flex flex-col
+            ${isHighlighted ? "pt-3" : "flex-1 justify-end pt-3"}
+          `}
+        >
+          <div className="grid grid-cols-2 gap-x-6">
+            <div className="min-w-0">
+              <DetailField label="Price">
+                {workshop.price}
+              </DetailField>
+            </div>
+
+            <div className="min-w-0">
+              <DetailField label="Availability">
+                <AvailabilityLabel
+                  status={workshop.availability}
+                />
+              </DetailField>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* RIGHT */}
+
+      <div className="flex lg:w-44 lg:shrink-0">
+        <BookingButton
+          availability={workshop.availability}
+        />
       </div>
     </div>
   );
@@ -946,117 +543,140 @@ function FilterDropdown({
   value: string;
   onChange: (v: string) => void;
 }) {
+  const [open, setOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(e.target as Node)
+      ) {
+        setOpen(false);
+      }
+    }
+
+    document.addEventListener(
+      "mousedown",
+      handleClickOutside,
+    );
+
+    return () => {
+      document.removeEventListener(
+        "mousedown",
+        handleClickOutside,
+      );
+    };
+  }, []);
+
   return (
     <div
-      className="
-        flex
-        h-[70.59px]
-        w-[292px]
-        flex-col
-        gap-[8px]
-        pt-[12px]
-      "
+      ref={containerRef}
+      className="relative flex flex-col gap-2"
     >
       <label
         className="
-          block
-          whitespace-nowrap
           font-['MonarchaW01-Regular']
-          text-[14px]
-          font-normal
-          leading-[14px]
-          tracking-[-0.5px]
+          text-[14px] font-normal
+          leading-[14px] tracking-[-0.5px]
           text-[#613339]
         "
       >
         {label}
       </label>
 
-      <div
+      {/* TRIGGER */}
+
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        aria-haspopup="listbox"
+        aria-expanded={open}
         className="
-          relative
-          box-border
-          h-[36px]
-          w-[292px]
-          rounded-[32px]
-          border-[0.5px]
-          border-[#B85428]
+          relative flex items-center justify-between
+          rounded-full
+          border border-[#B85428]
           bg-[#F6E3C9]
+          px-4 py-2.5
+          font-sofia text-[12px] font-light
+          leading-[16px] tracking-[0px]
+          text-[#8A5C62]
+          outline-none
         "
       >
-        <select
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
+        <span className="opacity-70">{value}</span>
+
+        <svg
+          width="12"
+          height="8"
+          viewBox="0 0 12 8"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className={`
+            shrink-0
+            transition-transform duration-200
+            ${open ? "rotate-180" : ""}
+          `}
+        >
+          <path
+            d="M1 1L6 6L11 1"
+            stroke="#613339"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </button>
+
+      {/* PANEL */}
+
+      {open && (
+        <ul
+          role="listbox"
           className="
-            absolute
-            left-[12px]
-            top-1/2
-            h-[16px]
-            w-[calc(100%-40px)]
-            -translate-y-1/2
-            cursor-pointer
-            appearance-none
-            border-none
-            bg-transparent
-            p-0
-            font-sofia
-            text-[12px]
-            font-light
-            leading-[16px]
-            tracking-[0px]
-            text-[#8A5C62]
-            outline-none
-            opacity-60
+            absolute left-0 top-full z-20 mt-2
+            flex w-full flex-col
+            rounded-3xl
+            border-2 border-[#C1652F]
+            bg-white
+            p-2
+            shadow-lg
           "
         >
           {options.map((opt) => (
-            <option
+            <li
               key={opt}
-              value={opt}
-              className="
-                font-sofia
-                text-[12px]
-                font-light
-                leading-[16px]
-                text-[#8A5C62]
-              "
+              role="option"
+              aria-selected={opt === value}
             >
-              {opt}
-            </option>
+              <button
+                type="button"
+                onClick={() => {
+                  onChange(opt);
+                  setOpen(false);
+                }}
+                className={`
+                  w-full rounded-2xl
+                  px-4 py-3
+                  text-left
+                  font-['MonarchaW01-Regular']
+                  text-[16px] font-normal
+                  leading-[20px]
+                  transition-colors duration-150
+                  hover:bg-[#FCE7C6]
+                  ${
+                    opt === value
+                      ? "text-[#C1652F]"
+                      : "text-[#62343A]"
+                  }
+                `}
+              >
+                {opt}
+              </button>
+            </li>
           ))}
-        </select>
-
-        <div
-          className="
-            pointer-events-none
-            absolute
-            right-[12px]
-            top-1/2
-            flex
-            h-[8px]
-            w-[12px]
-            -translate-y-1/2
-            items-center
-            justify-center
-          "
-        >
-          <svg
-            width="12"
-            height="8"
-            viewBox="0 0 12 8"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M1 1L6 6L11 1"
-              stroke="#613339"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </div>
-      </div>
+        </ul>
+      )}
     </div>
   );
 }
@@ -1067,9 +687,13 @@ function FilterDropdown({
 
 export default function WeekendSection() {
   const [selectedDay, setSelectedDay] = useState("All");
-  const [selectedAge, setSelectedAge] = useState("All ages");
+
+  const [selectedAge, setSelectedAge] =
+    useState("All ages");
+
   const [selectedCategory, setSelectedCategory] =
     useState("All categories");
+
   const [selectedAvailability, setSelectedAvailability] =
     useState("All");
 
@@ -1109,32 +733,20 @@ export default function WeekendSection() {
   });
 
   return (
-    <section
-      className="
-        w-full
-        h-[2049.814208984375px]
-        bg-[#F6E3C9]
-        py-[100px]
-      "
-    >
+    <section className="w-full bg-[#F6E3C9]">
       <div
         className="
-          mx-auto
-          w-full
-          max-w-[1240px]
+          mx-auto flex w-full max-w-[1240px]
+          flex-col px-4 py-24
         "
       >
         {/* HEADING */}
 
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-2">
           <span
             className="
-              whitespace-nowrap
-              font-sofia
-              text-[12px]
-              font-semibold
-              uppercase
-              leading-[100%]
+              font-sofia text-[12px] font-semibold
+              uppercase leading-[100%]
               tracking-[1.5px]
               text-[#62343A]
             "
@@ -1144,12 +756,9 @@ export default function WeekendSection() {
 
           <h1
             className="
-              m-0
-              h-[60px]
-              w-[822px]
+              max-w-[822px]
               font-monarcha
-              text-[60px]
-              font-normal
+              text-[60px] font-normal
               leading-[60px]
               tracking-[-1.5px]
               text-[#3D1F1F]
@@ -1160,32 +769,20 @@ export default function WeekendSection() {
               Schedule
             </em>
           </h1>
-        </div>
 
-        {/* DESCRIPTION */}
-
-        <div
-          className="
-            h-[56px]
-            w-[1240px]
-            pt-[32px]
-          "
-        >
           <p
             className="
-              m-0
-              max-w-[975px]
-              font-sofia
-              text-[16px]
-              font-normal
-              leading-[24px]
-              tracking-normal
+              max-w-[600px]
+              font-sofia text-[16px] font-normal
+              leading-[24px] tracking-normal
               text-[#8A5C62]
+              mt-4
+              text-na
             "
+
           >
-            The programme will include workshops
-            throughout the week, covering different
-            skills and age groups.
+            The programme will include workshops throughout
+            the week, covering different skills and age groups.
           </p>
         </div>
 
@@ -1193,62 +790,44 @@ export default function WeekendSection() {
 
         <div
           className="
-            h-[110px]
-            w-[1240px]
-            pt-[40px]
+            mt-4
+            grid grid-cols-1 gap-4
+            sm:grid-cols-2
+            lg:grid-cols-4
           "
         >
-          <div
-            className="
-              grid
-              h-[64.5px]
-              w-[1216px]
-              grid-cols-4
-              gap-[16px]
-            "
-          >
-            <FilterDropdown
-              label="Day"
-              options={days}
-              value={selectedDay}
-              onChange={setSelectedDay}
-            />
+          <FilterDropdown
+            label="Day"
+            options={days}
+            value={selectedDay}
+            onChange={setSelectedDay}
+          />
 
-            <FilterDropdown
-              label="Age group"
-              options={ageGroups}
-              value={selectedAge}
-              onChange={setSelectedAge}
-            />
+          <FilterDropdown
+            label="Age group"
+            options={ageGroups}
+            value={selectedAge}
+            onChange={setSelectedAge}
+          />
 
-            <FilterDropdown
-              label="Workshop category"
-              options={categories}
-              value={selectedCategory}
-              onChange={setSelectedCategory}
-            />
+          <FilterDropdown
+            label="Workshop category"
+            options={categories}
+            value={selectedCategory}
+            onChange={setSelectedCategory}
+          />
 
-            <FilterDropdown
-              label="Availability"
-              options={availabilities}
-              value={selectedAvailability}
-              onChange={setSelectedAvailability}
-            />
-          </div>
+          <FilterDropdown
+            label="Availability"
+            options={availabilities}
+            value={selectedAvailability}
+            onChange={setSelectedAvailability}
+          />
         </div>
 
         {/* WORKSHOP LIST */}
 
-        <div
-          className="
-            flex
-            h-[193.96px]
-            w-[1239px]
-            flex-col
-            gap-[24px]
-            pt-[24px]
-          "
-        >
+        <div className="mt-10 flex flex-col gap-6">
           {filtered.length > 0 ? (
             filtered.map((workshop) => (
               <WorkshopCard
@@ -1259,15 +838,13 @@ export default function WeekendSection() {
           ) : (
             <div
               className="
-                py-16
-                text-center
-                font-sofia
-                text-[16px]
+                py-16 text-center
+                font-sofia text-[16px]
                 text-[#8A5C62]
               "
             >
-              No workshops match your filters.
-              Try adjusting your selection.
+              No workshops match your filters. Try adjusting
+              your selection.
             </div>
           )}
         </div>

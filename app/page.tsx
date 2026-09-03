@@ -1,6 +1,7 @@
 import Hero from "@/components/Hero";
 import ProgrammeSection from "@/components/ProgrammeSection";
 import WorkshopSection from "@/components/WorkshopSection";
+import OurWorkshop from "@/components/OurWorkshop";
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
       </div>
       <ProgrammeSection />
       <WorkshopSection />
+      <OurWorkshop />
     </main>
   );
 }
